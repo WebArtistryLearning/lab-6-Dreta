@@ -36,7 +36,7 @@ jobs:
         expected-output: Hello, Adams!
         comparison-method: exact
         timeout: 1
-        max-score: 10
+        max-score: 20
     - name: Checkpoint 3
       id: checkpoint-3
       uses: classroom-resources/autograding-io-grader@v1
@@ -50,7 +50,7 @@ jobs:
           Let’s put our knowledge into practice with a simple exercise!!
         comparison-method: exact
         timeout: 1
-        max-score: 10
+        max-score: 20
     - name: Checkpoint 4
       id: checkpoint-4
       uses: classroom-resources/autograding-io-grader@v1
@@ -58,8 +58,8 @@ jobs:
         test-name: Checkpoint 4
         setup-command: ''
         command: python3 hello-you.py
-        input: "   "
-        expected-output: Hello,    !
+        input: "   a"
+        expected-output: Hello,    a!
         comparison-method: exact
         timeout: 1
         max-score: 20
