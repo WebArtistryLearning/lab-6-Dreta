@@ -1,0 +1,87 @@
+name: Autograding Tests
+'on':
+- push
+- repository_dispatch
+permissions:
+  checks: write
+  actions: read
+  contents: read
+jobs:
+  run-autograding-tests:
+    runs-on: ubuntu-latest
+    if: github.actor != 'github-classroom[bot]'
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    - name: Checkpoint 1
+      id: checkpoint-1
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: Checkpoint 1
+        setup-command: ''
+        command: python3 hello-you.py
+        input: John
+        expected-output: Hello, John!
+        comparison-method: exact
+        timeout: 1
+        max-score: 20
+    - name: Checkpoint 2
+      id: checkpoint-2
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: Checkpoint 2
+        setup-command: ''
+        command: python3 hello-you.py
+        input: Adams
+        expected-output: Hello, Adams!
+        comparison-method: exact
+        timeout: 1
+        max-score: 10
+    - name: Checkpoint 3
+      id: checkpoint-3
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: Checkpoint 3
+        setup-command: ''
+        command: python3 hello-you.py
+        input: Now, you have already learned much about Python programming. Let’s
+          put our knowledge into practice with a simple exercise!
+        expected-output: Hello, Now, you have already learned much about Python programming.
+          Let’s put our knowledge into practice with a simple exercise!!
+        comparison-method: exact
+        timeout: 1
+        max-score: 10
+    - name: Checkpoint 4
+      id: checkpoint-4
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: Checkpoint 4
+        setup-command: ''
+        command: python3 hello-you.py
+        input: "   "
+        expected-output: Hello,    !
+        comparison-method: exact
+        timeout: 1
+        max-score: 20
+    - name: Checkpoint 5
+      id: checkpoint-5
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: Checkpoint 5
+        setup-command: ''
+        command: python3 hello-you.py
+        input: skibidi toilet 3
+        expected-output: Hello, skibidi toilet 3!
+        comparison-method: exact
+        timeout: 1
+        max-score: 20
+    - name: Autograding Reporter
+      uses: classroom-resources/autograding-grading-reporter@v1
+      env:
+        CHECKPOINT-1_RESULTS: "${{steps.checkpoint-1.outputs.result}}"
+        CHECKPOINT-2_RESULTS: "${{steps.checkpoint-2.outputs.result}}"
+        CHECKPOINT-3_RESULTS: "${{steps.checkpoint-3.outputs.result}}"
+        CHECKPOINT-4_RESULTS: "${{steps.checkpoint-4.outputs.result}}"
+        CHECKPOINT-5_RESULTS: "${{steps.checkpoint-5.outputs.result}}"
+      with:
+        runners: checkpoint-1,checkpoint-2,checkpoint-3,checkpoint-4,checkpoint-5
