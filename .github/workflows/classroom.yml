@@ -58,8 +58,8 @@ jobs:
         test-name: Checkpoint 4
         setup-command: ''
         command: python3 hello-you.py
-        input: "   a"
-        expected-output: Hello,    a!
+        input: 中文
+        expected-output: Hello, 中文!
         comparison-method: exact
         timeout: 1
         max-score: 20
